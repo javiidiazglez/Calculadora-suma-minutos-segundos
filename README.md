@@ -14,7 +14,7 @@ Para instalar el lenguaje, se deberá escribir
 
 ### Ejecución del programa
 Para ejecutar el programa escribimos en la terminal:
-> python3 calculadora_suma.py
+> python3 [calculadora_suma.py](calculadora_suma.py)
 
 ## Programa:
 
