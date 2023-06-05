@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora - Suma y Resta de minutos y segundos</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script type="text/javascript">
+    function calcularResultado() {
+
+      var tiemposStr = document.getElementById("tiempos").value.trim();
+
+      if (tiemposStr === "") {
+        document.getElementById("resultado").textContent = "Error: No se ha insertado nada.";
+        return;
+      }
+
+      var tiemposList = tiemposStr.split(/[+-]/);
+      var operadores = tiemposStr.match(/[+-]/g);
+     
+      // Verificar si hay caracteres duplicados o múltiples operadores juntos
+      if (tiemposList.some(tiempo => !tiempo || tiempo.includes(":") && tiempo.split(":").length > 2)) {
+        document.getElementById("resultado").textContent = "Error: Formato de tiempo incorrecto.";
+        return;
+      }
+      
+      var minutosTotales = 0;
+      var segundosTotales = 0;
+
+      for (var i = 0; i < tiemposList.length; i++) {
+        var tiempo = tiemposList[i].trim();
+
+        try {
+          var minutosSegundos;
+
+          if (tiempo.includes(":")) {
+            minutosSegundos = tiempo.split(":");
+          } else if (tiempo.charAt(0) === '.' && !isNaN(parseFloat(tiempo.substring(1)))) {
+            minutosSegundos = ["0", tiempo.substring(1)];
+          } else {
+            throw new Error();
+          }
+
+          var minutos = parseInt(minutosSegundos[0]);
+          var segundos = parseInt(minutosSegundos[1]);
+
+          if (isNaN(minutos) || isNaN(segundos)) {
+            throw new Error();
+          }
+
+          if (minutos < 0 || minutos > 60 || segundos < 0 || segundos > 60) {
+            throw new Error();
+          }
+
+          if (i === 0) {
+            minutosTotales = minutos;
+            segundosTotales = segundos;
+          } else {
+            var operador = operadores[i - 1];
+
+            if (operador === '+') {
+              minutosTotales += minutos;
+              segundosTotales += segundos;
+            } else if (operador === '-') {
+              minutosTotales -= minutos;
+              segundosTotales -= segundos;
+            }
+          }
+
+          // Ajustar los segundos si superan los 60
+          if (segundosTotales >= 60) {
+            minutosTotales += Math.floor(segundosTotales / 60);
+            segundosTotales %= 60;
+          }
+        } catch (error) {
+          document.getElementById("resultado").textContent = "Error: El tiempo '" + tiempo + "' no tiene el formato correcto (minutos:segundos).";
+          return;
+        }
+      }
+
+      var resultado = formatResult(minutosTotales, segundosTotales);
+      if (minutosTotales < 0 || segundosTotales < 0) {
+        resultado = "El resultado negativo es: " + resultado;
+      } else {
+        resultado = "El resultado es: " + resultado;
+      }
+      document.getElementById("resultado").textContent = resultado;
+    }
+
+    function resetearTiempos() {
+      document.getElementById("tiempos").value = "";
+      document.getElementById("resultado").textContent = "";
+    }
+
+    function formatResult(minutos, segundos) {
+
+      var minutosText = Math.abs(minutos) === 1 ? "minuto" : "minutos";
+      var segundosText = Math.abs(segundos) === 1 ? "segundo" : "segundos";
+      var signo = minutos < 0 || segundos < 0 ? "-" : "";
+
+      return signo + Math.abs(minutos) + " " + minutosText + " y " + Math.abs(segundos) + " " + segundosText;
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Calculadora - Suma y Resta de minutos y segundos</h1>
+
+  <label for="tiempos">Introduzca la operación a calcular (minutos:segundos separados por '+' o '-'):</label><br>
+  <input type="text" id="tiempos" style="width: 300px;" placeholder="Ejemplo: 0.20+.20"><br>
+  <button onclick="calcularResultado()">Calcular</button>
+  <button onclick="resetearTiempos()">Reset</button>
+
+  <div id="resultado"></div>
+</body>
+
+</html>

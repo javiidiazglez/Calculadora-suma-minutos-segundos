@@ -1,28 +1,35 @@
-# Calculadora. Suma de minutos y segundos.
+# Calculadora. Suma y Resta de minutos y segundos.
  
 - José Javier Díaz González
 - Año 2023
 
+| Acceso al enlace:|
+| --- |
+| [Acceso]() |
+||
+
+### La salida en página Web:
+![Imagen html](img/03_html.png) 
+
+
+
 ## Introducción
 Aquí mostramos una *función que calcula una suma de minutos y segundos* seguidos por '+'
 
-### Compilación
-Para compilar el programa, se necesitará una versión **Linux** y el lenguaje de **Python3** instalado. 
+1. Para compilar el programa, se necesitará una versión **Linux** y el lenguaje de **Python3** instalado. 
 
-Para instalar el lenguaje, se deberá escribir
-> sudo apt install python3.8
+2. Para instalar el lenguaje, se deberá escribir
+   > sudo apt install python3.8
 
-### Ejecución del programa
-Para ejecutar el programa escribimos en la terminal:
-> python3 [calculadora_suma.py](calculadora_suma.py)
+3. Para ejecutar el programa escribimos en la terminal:
+    > python3 [calculadora_suma.py](calculadora_suma.py)
 
-## Programa:
+## Programa (Python):
 
-#### La salida del programa sería tal que así:
+#### La salida del programa:
 
 ![Imagen Resultado](img/01_resultado.png) 
 
 #### Con manejo de exepciones, se verían tal que así:
 
 ![Imagen Errores](img/02_errores.png) 
-
